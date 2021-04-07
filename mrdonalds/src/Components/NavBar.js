@@ -42,12 +42,18 @@ const SignButton = styled.button`
     cursor: pointer;
     outline: 0;
     border: 0;
+    
 `;
 
 const SignText = styled.p`
     text-transform: uppercase;
+    font-size: 15px;
     font-family: Roboto, Arial, sans-serif;
     color: white;
+    transition: color .2s;
+    ${SignButton}:hover & {
+        color: #ffeb00;
+    }
 `;
 
 export const NavBar = () => (
