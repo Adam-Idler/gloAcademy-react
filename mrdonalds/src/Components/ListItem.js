@@ -28,7 +28,7 @@ const Item = styled.li`
         right: 0;
         left: 0;
         background-color: black;
-        opacity: 40%;
+        opacity: 60%;
         z-index: -1;
     }
 
