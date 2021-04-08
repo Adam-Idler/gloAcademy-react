@@ -31,27 +31,18 @@ const ImgLogo = styled.img`
     width: 50px;
 `;
 
-const SignImg = styled.img`
-    width: 32px;
-    height: 32px;
-`;
-
 const SignButton = styled.button`
     display: inline-block;
     background-color: inherit;
-    cursor: pointer;
     outline: 0;
     border: 0;
-    
-`;
 
-const SignText = styled.p`
     text-transform: uppercase;
-    font-size: 15px;
+    font-size: 16px;
     font-family: Roboto, Arial, sans-serif;
     color: white;
     transition: color .2s;
-    ${SignButton}:hover & {
+    :hover {
         color: #ffeb00;
     }
 `;
@@ -63,8 +54,8 @@ export const NavBar = () => (
             <H1>MrDonald's</H1>
         </Logo>
         <SignButton>
-            <SignImg src={signImg} alt="logo"/>
-            <SignText>Войти</SignText>
+            <img src={signImg} alt="logo"/>
+            <p>Войти</p>
         </SignButton>
     </NavBarStyled>
 );
