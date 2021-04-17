@@ -11,7 +11,7 @@ const OrderStyled = styled.section`
     top: 80px;
     left: 0;
     background: #fff;
-    width: 380px;
+    width: 400px;
     height: calc(100% - 80px);
     box-shadow: 3px 4px 5px rgba(0, 0, 0, .25);
     padding: 20px;
@@ -49,7 +49,7 @@ const EmptyList = styled.p`
     text-align: center;
 `;
 
-export const Order = ({ orders, setOrders, setOpenItem }) => {
+export const Order = ({ orders, setOrders, setOpenItem, authentication, logIn }) => {
     const deleteItem = index => {
         const newOrders = orders.filter((item, i) => index !== i);
 
@@ -83,7 +83,7 @@ export const Order = ({ orders, setOrders, setOpenItem }) => {
                 <span>{totalCounter}</span>
                 <TotalPrice>{formatCurrency(total)}</TotalPrice>
             </Total>
-            <ButtonCheckout>Оформить</ButtonCheckout>
+            <ButtonCheckout onClick={authentication ? console.log(orders.map(order => order.name)) : logIn}>Оформить</ButtonCheckout>
         </OrderStyled>
     )
 }
