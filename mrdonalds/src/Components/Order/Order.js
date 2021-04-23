@@ -3,6 +3,7 @@ import { ButtonCheckout } from '../Style/ButtonCheckout';
 import { OrderListItem } from './OrderListItem';
 import { totalPriceItems } from '../functions/secondaryFunction';
 import { formatCurrency } from '../functions/secondaryFunction';
+import { projection } from '../functions/secondaryFunction';
 
 const OrderStyled = styled.section`
     display: flex;
@@ -49,7 +50,28 @@ const EmptyList = styled.p`
     text-align: center;
 `;
 
-export const Order = ({ orders, setOrders, setOpenItem, authentication, logIn }) => {
+const rulesData = {
+    itemName: ['name'],
+    price: ['price'],
+    count: ['count'],
+    topping: ['topping', arr => arr.filter(obj => obj.checked).map(obj => obj.name),
+        arr => arr.length ? arr : 'no toppings'],
+    choice: ['choice', item => item ? item : 'no choices']
+};
+
+export const Order = ({ orders, setOrders, setOpenItem, authentication, logIn, firebaseDatabase }) => {
+    const dataBase = firebaseDatabase();
+
+    const sendOrder = () => {
+        const newOrder = orders.map(projection(rulesData));
+        dataBase.ref('orders').push().set({
+            nameClient: authentication.displayName,
+            email: authentication.email,
+            order: newOrder
+        });
+        setOrders([]);
+    };
+
     const deleteItem = index => {
         const newOrders = orders.filter((item, i) => index !== i);
 
@@ -83,7 +105,7 @@ export const Order = ({ orders, setOrders, setOpenItem, authentication, logIn })
                 <span>{totalCounter}</span>
                 <TotalPrice>{formatCurrency(total)}</TotalPrice>
             </Total>
-            <ButtonCheckout onClick={authentication ? console.log(orders.map(order => order.name)) : logIn}>Оформить</ButtonCheckout>
+            <ButtonCheckout onClick={authentication ? sendOrder : logIn}>Оформить</ButtonCheckout>
         </OrderStyled>
     )
 }
